@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
-const userRouter = require('./routes/userRoute');
+const userRoute = require('./routes/userRoute');
 const taskRouter = require('./routes/taskRoute');
 require('dotenv').config();
 
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use('/api/user', userRouter);
+app.use('/api/user', userRoute);
 app.use('/api/task', taskRouter);
 
 // Basic route
