@@ -1,61 +1,79 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useTasks } from '../context/TaskContext';
+import { FaTasks } from 'react-icons/fa';
+import { FaSignOutAlt } from "react-icons/fa";
+
 
 const Navbar = () => {
-const navigate = useNavigate();
-  const token = localStorage.getItem('token');
+    const { user, logout } = useTasks();
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    history.push('/login');
-  };
+    return (
+        <nav className="w-full fixed z-10 bg-gray-800/30 text-white shadow-md backdrop-blur-md backdrop-saturate-150 border-b border-white/20">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between h-16 items-center">
+                    {/* Left: Logo & Brand */}
+                    <div className="flex items-center gap-2">
+                        <FaTasks className="text-2xl text-blue-800" />
+                        <Link to="/" className="text-xl font-semibold hover:text-blue-800 transition">
+                            Task Manager
+                        </Link>
+                    </div>
 
-  return (
-    <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-white font-bold text-xl">
-          Task Manager
-        </Link>
-        <ul className="flex space-x-4">
-          <li>
-            <Link to="/" className="text-gray-300 hover:text-white">
-              Home
-            </Link>
-          </li>
-          {token ? (
-            <>
-              <li>
-                <Link to="/user" className="text-gray-300 hover:text-white">
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <button
-                  onClick={handleLogout}
-                  className="text-gray-300 hover:text-white"
-                >
-                  Logout
-                </button>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <Link to="/login" className="text-gray-300 hover:text-white">
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link to="/signup" className="text-gray-300 hover:text-white">
-                  Sign Up
-                </Link>
-              </li>
-            </>
-          )}
-        </ul>
-      </div>
-    </nav>
-  );
+                    {/* Right: Navigation Links */}
+                    <ul className="flex items-center gap-6">
+                        {user ? (
+                            <>
+                                <li>
+                                    <Link
+                                        to="/"
+                                        className="hover:text-blue-800 transition"
+                                    >
+                                        Home
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/profile"
+                                        className="hover:text-blue-800 transition"
+                                    >
+                                        Profile
+                                    </Link>
+                                </li>
+                                <li>
+                                    <button
+                                        onClick={logout}
+                                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition"
+                                    >
+                                        <FaSignOutAlt />
+                                    </button>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                <li>
+                                    <Link
+                                        to="/login"
+                                        className="hover:text-blue-800 transition"
+                                    >
+                                        Login
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/register"
+                                        className="bg-blue-800 hover:bg-blue-900 text-gray-200 px-3 py-1 rounded transition"
+                                    >
+                                        Register
+                                    </Link>
+                                </li>
+                            </>
+                        )}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    );
 };
 
 export default Navbar;
