@@ -22,7 +22,7 @@ const ProfilePage = () => {
         try {
             const res = await api.put('/user/update', { name, email });
             alert(res.data.message);
-            fetchTasks(); // Optionally refresh user data
+            fetchTasks(); 
         } catch (error) {
             alert(error.response?.data?.message || 'Failed to update profile.');
         }

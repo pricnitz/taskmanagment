@@ -24,17 +24,17 @@ const TaskItem = ({ task }) => {
         <div className={`task-item ${task.status}`}>
             <div className="border bg-white/15 rounded p-3 flex flex-col gap-3" style={{ border: getPriorityColor(task.priority) }}>
                 <h3 className='text-md font-bold text-gray-200'><Link to={`/tasks/${task._id}`}>{task.title}</Link></h3>
-                <hr className='text-white'/>
-               <span className="text-md text-gray-300">
-  Description<br />
-  {task.description?.length > 30 
-    ? task.description.slice(0, 30) + "..." 
-    : task.description}
-</span>
+                <hr className='text-white' />
+                <span className="text-md text-gray-300">
+                    Description<br />
+                    {task.description?.length > 30
+                        ? task.description.slice(0, 30) + "..."
+                        : task.description}
+                </span>
                 <p className="text-md text-gray-300">Complete Before <br /> {new Date(task.dueDate).toLocaleDateString()}</p>
                 <div className="flex gap-3">
                     <button onClick={handleStatusChange} className="status-button">
-                        {task.status === 'completed' ? <FaCheckCircle className='text-green-500'  /> : <FaTimesCircle className='text-red-500'  />}
+                        {task.status === 'completed' ? <FaCheckCircle className='text-green-500' /> : <FaTimesCircle className='text-red-500' />}
                     </button>
                     <Link to={`/tasks/${task._id}/edit`} className="edit-button">
                         <FaEdit className='text-yellow-500' />
